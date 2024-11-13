@@ -4,7 +4,6 @@ import 'package:flightly/app/theme/colors.dart';
 import 'package:flightly/core/utils/form_validations.dart';
 import 'package:flightly/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class StartPage extends StatefulWidget {

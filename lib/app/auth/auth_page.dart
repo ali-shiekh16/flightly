@@ -1,7 +1,8 @@
 import 'package:flightly/pages/start_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:flightly/pages/home_screen.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -12,6 +13,7 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   User? _user;
+  final SupabaseClient supabase = Supabase.instance.client;
 
   @override
   void initState() {
@@ -28,10 +30,14 @@ class _AuthState extends State<Auth> {
       setState(() {
         _user = event.session?.user;
       });
+      if (_user != null) {
+        // Navigate to HomeScreen after login
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
     });
   }
-
-  final SupabaseClient supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
