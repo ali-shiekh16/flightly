@@ -19,13 +19,6 @@ class _FeedbackReviewPageState extends State<FeedbackReviewPage> {
       {'review': 'Great flight!', 'adminResponse': ''},
       {'review': 'Comfortable and on time.', 'adminResponse': ''},
     ],
-    // 'FL456': [
-    //   {'review': 'Average service.', 'adminResponse': ''},
-    //   {'review': 'Food could be better.', 'adminResponse': ''},
-    // ],
-    // 'FL789': [
-    //   {'review': 'Delayed but staff was polite.', 'adminResponse': ''},
-    // ],
   };
 
   List<String> flightIds = [];
@@ -53,16 +46,18 @@ class _FeedbackReviewPageState extends State<FeedbackReviewPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Flight search
-            TypeAheadFormField<String>(
-              textFieldConfiguration: TextFieldConfiguration(
-                controller: flightSearchController,
-                decoration: InputDecoration(
-                  labelText: 'Search Flight ID',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
+            TypeAheadField(
+              controller: flightSearchController,
+              builder: (context, controller, focusNode) {
+                return TextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter FLight Id',
+                    ));
+              },
               suggestionsCallback: (query) {
                 return flightIds
                     .where(
@@ -74,17 +69,23 @@ class _FeedbackReviewPageState extends State<FeedbackReviewPage> {
                   title: Text(suggestion),
                 );
               },
-              onSuggestionSelected: (String suggestion) {
+              onSelected: (String suggestion) {
                 setState(() {
                   flightSearchController.text = suggestion;
                   selectedFlightReviews = flightReviews[suggestion];
                 });
               },
-              noItemsFoundBuilder: (context) => const Padding(
-                padding: EdgeInsets.all(8.0),
+              hideOnLoading: true,
+              hideOnError: true,
+              loadingBuilder: (context) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const CircularProgressIndicator(),
+              ),
+              errorBuilder: (context, error) => Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'No flights found',
-                  style: TextStyle(color: Colors.red),
+                  error.toString(),
+                  style: const TextStyle(color: Colors.red),
                 ),
               ),
             ),

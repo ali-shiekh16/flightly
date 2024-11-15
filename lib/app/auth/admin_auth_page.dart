@@ -46,8 +46,8 @@ class _adminAuthState extends State<adminAuth> {
                   validator: (value) {
                     if (value == null) {
                       return 'Please Enter Email';
-                    } else if (!value!.contains('@')) {
-                      return 'Email must have @ symbol  ';
+                    } else if (!value!.contains('admin@gmail.com')) {
+                      return 'Wrong Email';
                     } else {
                       return null;
                     }
@@ -69,6 +69,8 @@ class _adminAuthState extends State<adminAuth> {
                         return 'Please Enter password';
                       } else if (value!.length <= 5) {
                         return 'Password have Atleast 6 character ';
+                      } else if (!value!.contains('admin1')) {
+                        return 'Wrong Password';
                       } else {
                         return null;
                       }
