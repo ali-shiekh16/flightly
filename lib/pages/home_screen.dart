@@ -3,6 +3,8 @@ import 'home_page.dart';
 import 'book_flight_page.dart';
 import 'my_trips_page.dart';
 import 'profile_page.dart';
+import 'package:flightly/app/theme/font.dart';
+import 'package:flightly/app/auth/admin_auth_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +42,94 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? 'My Trips'
                       : 'Profile',
         ),
+        automaticallyImplyLeading: false,
       ),
+
+      drawer: Container(
+        color: Theme.of(context).dialogBackgroundColor,
+        width: MediaQuery.of(context).size.width / 1.5,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 120),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.person_3_rounded,
+                    size: 30,
+                  ),
+                  title: InkWell(
+                    child: const Text(
+                      'Admin login ',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => adminAuth()),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Divider(
+                color: Theme.of(context).dividerColor,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.color_lens_sharp,
+                    size: 30,
+                  ),
+                  title: InkWell(
+                    child: Text(
+                      'xyz',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: Theme.of(context).dividerColor),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.color_lens_sharp,
+                    size: 30,
+                  ),
+                  title: InkWell(
+                    child: Text(
+                      'xyz',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: Theme.of(context).dividerColor),
+              const Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.color_lens_sharp,
+                    size: 30,
+                  ),
+                  title: InkWell(
+                    child: Text(
+                      'xyz',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+
+      //afzal work close
+
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
